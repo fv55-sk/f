@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global North & Global South Divide — Interactive Study Master</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts: Inter -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .gradient-border {
+      border-image: linear-gradient(to right, #ec4899, #eab308, #06b6d4) 1;
+    }
+  </style>
+</head>
+<body class="h-full text-slate-100 flex flex-col font-sans antialiased bg-slate-950 selection:bg-pink-500 selection:text-slate-950">
+
+  <!-- TOP HEADER -->
+  <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-500 to-rose-700 flex items-center justify-center text-slate-950 font-bold text-xl shadow-lg shadow-pink-500/20">
+          <i class="fa-solid fa-globe"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-base sm:text-lg text-slate-100 tracking-tight leading-none">
+            GLOBAL DIVIDE STUDY MASTER
+          </h1>
+          <p class="text-xs text-pink-400 font-mono mt-0.5">The Contemporary World • Lecture Module Guide</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="hidden md:inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-xs text-slate-300 font-medium">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          Slide Deck Companion
+        </span>
+        <button onclick="toggleGlobalQuoteModal()" class="px-3 py-1.5 bg-pink-500 hover:bg-pink-400 text-slate-950 font-semibold text-xs rounded-lg transition flex items-center gap-1.5 shadow-sm">
+          <i class="fa-solid fa-quote-left"></i>
+          <span class="hidden sm:inline">Kofi Annan Quote</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN APP LAYOUT -->
+  <div class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row gap-6">
+
+    <!-- NAVIGATION SIDEBAR -->
+    <aside class="w-full md:w-64 flex-shrink-0 space-y-2">
+      <nav class="bg-slate-900/90 backdrop-blur p-3 rounded-2xl border border-slate-800 space-y-1 shadow-xl sticky top-20">
+        <button onclick="switchTab('concepts')" id="nav-concepts" class="tab-btn active w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">
+          <i class="fa-solid fa-book text-pink-400 w-5 text-center"></i>
+          <span>Core Terms & Words</span>
+        </button>
+        <button onclick="switchTab('ir-theories')" id="nav-ir-theories" class="tab-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">
+          <i class="fa-solid fa-scale-balanced text-amber-400 w-5 text-center"></i>
+          <span>Major IR Theories</span>
+        </button>
+        <button onclick="switchTab('paradigms')" id="nav-paradigms" class="tab-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">
+          <i class="fa-solid fa-earth-americas text-cyan-400 w-5 text-center"></i>
+          <span>Global Paradigms</span>
+        </button>
+        <button onclick="switchTab('resistance')" id="nav-resistance" class="tab-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">
+          <i class="fa-solid fa-fist-raised text-rose-400 w-5 text-center"></i>
+          <span>Southern Resistance</span>
+        </button>
+        <button onclick="switchTab('starbucks')" id="nav-starbucks" class="tab-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">
+          <i class="fa-solid fa-store text-emerald-400 w-5 text-center"></i>
+          <span>Starbucks & Shanty</span>
+        </button>
+        <button onclick="switchTab('quiz')" id="nav-quiz" class="tab-btn w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs sm:text-sm font-medium text-slate-300 hover:bg-slate-800 hover:text-white transition">
+          <i class="fa-solid fa-circle-question text-purple-400 w-5 text-center"></i>
+          <span>Exam Practice Quiz</span>
+        </button>
+      </nav>
+
+      <!-- BRANDT LINE QUICK SUMMARY CARD -->
+      <div class="bg-slate-900/60 border border-slate-800/80 rounded-2xl p-4 text-xs space-y-2">
+        <div class="flex items-center justify-between text-pink-400 font-mono font-bold">
+          <span>BRANDT LINE (1980)</span>
+          <i class="fa-solid fa-chart-line"></i>
+        </div>
+        <p class="text-slate-400 text-[11px] leading-relaxed">
+          Proposed by Willy Brandt in the 1980 Brandt Report. Visualizes the GDP per capita disparity dividing the wealthy North from the developing South.
+        </p>
+      </div>
+    </aside>
+
+    <!-- CONTENT DISPLAY MAIN -->
+    <main class="flex-1 min-w-0">
+
+      <!-- TAB 1: CORE TERMS & WORDS TO GO BY -->
+      <section id="tab-concepts" class="tab-content space-y-6">
+        <div class="bg-gradient-to-r from-slate-900 via-slate-900 to-slate-950 border border-slate-800 p-6 rounded-3xl shadow-xl relative overflow-hidden">
+          <div class="absolute -right-10 -bottom-10 opacity-10 text-pink-500 pointer-events-none">
+            <i class="fa-solid fa-earth-asia text-9xl"></i>
+          </div>
+          <div class="relative z-10 space-y-2">
+            <span class="px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs font-mono font-semibold">
+              Words To Go By & Core Objectives
+            </span>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              Dimensions of the Global North-South Divide
+            </h2>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-3xl">
+              Understand key definitions, structural imbalances, aggregate income distribution, and UN Millennium Development Goals (MDGs).
+            </p>
+          </div>
+        </div>
+
+        <!-- KEY STATS SLIDE INFOGRAPHIC CARD -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+            <div class="flex items-center gap-2 text-pink-400 font-bold text-sm">
+              <i class="fa-solid fa-building-columns"></i>
+              <span>THE GLOBAL NORTH ("Developed Countries")</span>
+            </div>
+            <ul class="text-xs text-slate-300 space-y-2 font-mono">
+              <li class="flex justify-between border-b border-slate-800 pb-1">
+                <span class="text-slate-400">Geography:</span>
+                <span>North America, Europe, Australia, Japan</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-800 pb-1">
+                <span class="text-slate-400">World Population Share:</span>
+                <span class="text-amber-400 font-bold">1/4 (25%)</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-800 pb-1">
+                <span class="text-slate-400">World Income Share:</span>
+                <span class="text-emerald-400 font-bold">4/5 (80%)</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-slate-400">Manufacturing Owned:</span>
+                <span class="text-pink-400 font-bold">90% of global total</span>
+              </li>
+            </ul>
+            <p class="text-[11px] text-slate-400 leading-relaxed pt-1">
+              Characterized by established democracy, wealth, technological advancement, political stability, aging population, and zero population growth.
+            </p>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+            <div class="flex items-center gap-2 text-amber-400 font-bold text-sm">
+              <i class="fa-solid fa-wheat-awn"></i>
+              <span>THE GLOBAL SOUTH ("Developing Countries")</span>
+            </div>
+            <ul class="text-xs text-slate-300 space-y-2 font-mono">
+              <li class="flex justify-between border-b border-slate-800 pb-1">
+                <span class="text-slate-400">Geography:</span>
+                <span>Africa, Latin America, Developing Asia</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-800 pb-1">
+                <span class="text-slate-400">World Population Share:</span>
+                <span class="text-amber-400 font-bold">3/4 (75%)</span>
+              </li>
+              <li class="flex justify-between border-b border-slate-800 pb-1">
+                <span class="text-slate-400">World Income Share:</span>
+                <span class="text-rose-400 font-bold">1/5 (20%)</span>
+              </li>
+              <li class="flex justify-between">
+                <span class="text-slate-400">Primary Economy:</span>
+                <span>Raw Material, Agriculture, Factory Labor</span>
+              </li>
+            </ul>
+            <p class="text-[11px] text-slate-400 leading-relaxed pt-1">
+              Refers to interconnected histories of colonialism, neo-imperialism, and differential social changes maintaining unequal living standards.
+            </p>
+          </div>
+        </div>
+
+        <!-- VOCABULARY FLASH CARDS GRID -->
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-4">
+          <h3 class="font-bold text-slate-100 text-sm flex items-center gap-2">
+            <i class="fa-solid fa-key text-pink-400"></i>
+            Mandatory Slide Vocabulary ("Words To Go By")
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <span class="text-[10px] font-mono text-pink-400 font-bold uppercase">First World</span>
+              <h4 class="font-bold text-sm text-slate-200">Industrialized & Developed</h4>
+              <p class="text-xs text-slate-400">Countries that are fully industrialized, technologically advanced, and economically developed.</p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <span class="text-[10px] font-mono text-amber-400 font-bold uppercase">Third World</span>
+              <h4 class="font-bold text-sm text-slate-200">Developing & Semi-Industrialized</h4>
+              <p class="text-xs text-slate-400">Countries that are mostly developing, non-industrialized, or semi-industrialized economies.</p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <span class="text-[10px] font-mono text-purple-400 font-bold uppercase">Neocolonialism</span>
+              <h4 class="font-bold text-sm text-slate-200">Indirect Domination</h4>
+              <p class="text-xs text-slate-400">Indirect colonialism where a neocolony is dominated economically, culturally, or politically by a powerful country.</p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <span class="text-[10px] font-mono text-rose-400 font-bold uppercase">Austerity</span>
+              <h4 class="font-bold text-sm text-slate-200">Social Budget Cuts</h4>
+              <p class="text-xs text-slate-400">Policy of cutting state budget for social services (health, education) to reduce a country's budget deficit.</p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <span class="text-[10px] font-mono text-cyan-400 font-bold uppercase">Absolute Poverty</span>
+              <h4 class="font-bold text-sm text-slate-200">Severe Deprivation</h4>
+              <p class="text-xs text-slate-400">Severe deprivation of basic human needs including food, safe drinking water, sanitation, health, shelter, and education.</p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-1.5">
+              <span class="text-[10px] font-mono text-emerald-400 font-bold uppercase">Regionalism</span>
+              <h4 class="font-bold text-sm text-slate-200">Closer Economic Integration</h4>
+              <p class="text-xs text-slate-400">Process of closer economic integration of countries within a region (culturally and geographically linked).</p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- 7 CAUSES OF GLOBAL INEQUALITIES -->
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-3">
+          <h3 class="font-bold text-slate-100 text-sm flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-amber-400"></i>
+            7 Primary Causes of Global Inequality (Slide 12)
+          </h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-slate-300">
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-[10px] font-bold">1</span>
+              <span>Availability of natural resources</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-[10px] font-bold">2</span>
+              <span>Different levels of health and education</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-[10px] font-bold">3</span>
+              <span>Nature of industrial sectors & economic structure</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-[10px] font-bold">4</span>
+              <span>International trading policies & market access</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-[10px] font-bold">5</span>
+              <span>Quality of domestic governance & international relations</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center gap-2">
+              <span class="w-5 h-5 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center text-[10px] font-bold">6</span>
+              <span>Conflict within and between countries</span>
+            </div>
+            <div class="bg-slate-950 p-2.5 rounded-lg border border-slate-800 flex items-center justify-center sm:col-span-2 text-pink-400 font-bold">
+              7. Vulnerability to natural hazards and climate change
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: FOUR MAJOR IR THEORIES -->
+      <section id="tab-ir-theories" class="tab-content hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <h2 class="font-bold text-slate-100 text-base sm:text-lg flex items-center gap-2">
+              <i class="fa-solid fa-scale-balanced text-amber-400"></i>
+              Major Theories of International Relations (Slides 14–20)
+            </h2>
+            <p class="text-xs text-slate-400">Comparing Realism, Liberalism, Marxism, and Constructivism in evaluating global inequality.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- REALISM -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <span class="font-bold text-slate-100 text-base flex items-center gap-2">
+                  <i class="fa-solid fa-shield-halved text-rose-400"></i> REALISM
+                </span>
+                <span class="text-[10px] font-mono bg-rose-500/10 text-rose-400 border border-rose-500/30 px-2 py-0.5 rounded">Politics-Centric</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Assumes the international system is inherently disorderly and relations are **anarchic**. Primary actors (States) are perpetually locked in a struggle for power and national survival.
+              </p>
+              <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 text-[11px] text-slate-400 font-mono space-y-1">
+                <div><strong class="text-rose-400">Core Premise:</strong> Self-interest, relative gains, zero-sum power.</div>
+                <div><strong class="text-slate-300">Power Logic:</strong> A state either has power or none at all; no middle ground.</div>
+              </div>
+            </div>
+
+            <!-- LIBERALISM -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <span class="font-bold text-slate-100 text-base flex items-center gap-2">
+                  <i class="fa-solid fa-handshake text-blue-400"></i> LIBERALISM
+                </span>
+                <span class="text-[10px] font-mono bg-blue-500/10 text-blue-400 border border-blue-500/30 px-2 py-0.5 rounded">Politics-Centric</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Centers on rejecting pure power politics. Believes cooperation, economic interdependence, supranational authorities, and non-state actors (NGOs, TNCs) shape peace.
+              </p>
+              <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 text-[11px] text-slate-400 font-mono space-y-1">
+                <div><strong class="text-blue-400">Core Premise:</strong> Free trade, rule-based institutions, absolute gains.</div>
+                <div><strong class="text-slate-300">Key Actors:</strong> States + Supranational Bodies + Business Organizations.</div>
+              </div>
+            </div>
+
+            <!-- MARXISM -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <span class="font-bold text-slate-100 text-base flex items-center gap-2">
+                  <i class="fa-solid fa-industry text-amber-400"></i> MARXISM
+                </span>
+                <span class="text-[10px] font-mono bg-amber-500/10 text-amber-400 border border-amber-500/30 px-2 py-0.5 rounded">Economics-Centric</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Based on Karl Marx’s economic principles. Argues that global instability and inequality stem directly from **global class struggle**, capitalist exploitation, and institutionalized injustice.
+              </p>
+              <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 text-[11px] text-slate-400 font-mono space-y-1">
+                <div><strong class="text-amber-400">4 Causes of Instability:</strong> Capitalism, Resource Exploitation by the Few, Uneven Wealth Distribution, Institutionalized Inequality.</div>
+              </div>
+            </div>
+
+            <!-- CONSTRUCTIVISM -->
+            <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 space-y-3">
+              <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                <span class="font-bold text-slate-100 text-base flex items-center gap-2">
+                  <i class="fa-solid fa-comments text-purple-400"></i> CONSTRUCTIVISM
+                </span>
+                <span class="text-[10px] font-mono bg-purple-500/10 text-purple-400 border border-purple-500/30 px-2 py-0.5 rounded">Social-Construct</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Views international politics as shaped by **identities, shared meanings, and changing social norms**. Conceives states as social beings whose interests are constructed through interaction.
+              </p>
+              <div class="bg-slate-900 p-2.5 rounded-xl border border-slate-800 text-[11px] text-slate-400 font-mono space-y-1">
+                <div><strong class="text-purple-400">Core Motto:</strong> *"Anarchy is what states make of it."* Identities dictate actions.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: PRO-GLOBALIST & WESTERN HEGEMONY PARADIGMS -->
+      <section id="tab-paradigms" class="tab-content hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <h2 class="font-bold text-slate-100 text-base sm:text-lg flex items-center gap-2">
+              <i class="fa-solid fa-earth-americas text-cyan-400"></i>
+              Pro-Globalist & Western Hegemony Paradigms (Slide 21)
+            </h2>
+            <p class="text-xs text-slate-400">Key theories that justify global free trade, capitalist integration, and Western-centric development models.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-cyan-400">Globalism (Manfred Steger)</span>
+                <span class="text-[10px] font-mono text-slate-500">Normative Goal</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Global economic integration is not only inevitable due to technology, but is a **normative international goal** that all societies should actively pursue.
+              </p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-amber-400">Modernization Theory (W.W. Rostow)</span>
+                <span class="text-[10px] font-mono text-slate-500">5 Stages of Growth</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Outlines historical progress based on a society's internal capacity to produce and consume material goods through linear developmental stages.
+              </p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-emerald-400">"End of History" (Francis Fukuyama)</span>
+                <span class="text-[10px] font-mono text-slate-500">Capitalist Telos</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                The total triumph of Western liberal democracy and free-market capitalism marks the final endpoint (*telos*) of human political evolution.
+              </p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-pink-400">"The Lexus & Olive Tree" (Thomas Friedman)</span>
+                <span class="text-[10px] font-mono text-slate-500">Global Imperative</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Presents progress as a binary choice: either embrace global free trade (the *Lexus*) or face economic stagnation and irrelevance (the alternative).
+              </p>
+            </div>
+
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 md:col-span-2">
+              <div class="flex items-center justify-between">
+                <span class="font-bold text-sm text-rose-400">"Clash of Civilizations" (Samuel Huntington)</span>
+                <span class="text-[10px] font-mono text-slate-500">Cultural Conflict</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Argues that primary conflicts in the post-Cold War era will not be economic or ideological, but cultural and religious between distinct global civilizations.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: SOUTHERN RESISTANCE & COUNTER-HEGEMONY -->
+      <section id="tab-resistance" class="tab-content hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <h2 class="font-bold text-slate-100 text-base sm:text-lg flex items-center gap-2">
+              <i class="fa-solid fa-fist-raised text-rose-400"></i>
+              Challenging the Global Order: Southern Resistance (Slide 21 & 22)
+            </h2>
+            <p class="text-xs text-slate-400">How leaders and thinkers of the Global South critique Western economic control.</p>
+          </div>
+
+          <div class="space-y-4">
+            <!-- LENIN -->
+            <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-sm text-rose-400">Vladimir Lenin: Imperialism as the Highest Stage of Capitalism</h3>
+                <span class="text-[10px] font-mono bg-rose-500/10 text-rose-400 px-2 py-0.5 rounded">Marxist Imperialism</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Capitalism's survival in core wealthy nations depends directly on invading and securing new foreign markets, extracting cheap labor, and seizing raw materials via **imperialism**.
+              </p>
+            </div>
+
+            <!-- SUKARNO -->
+            <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-sm text-amber-400">President Sukarno (Indonesia): Colonialism in Modern Dress</h3>
+                <span class="text-[10px] font-mono bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded">1955 Bandung Spirit</span>
+              </div>
+              <blockquote class="text-xs text-slate-300 italic border-l-2 border-amber-400 pl-3 py-1">
+                "Colonialism has also its modern dress, in the form of economic control, intellectual control, actual physical control by a small but alien community within a nation. It is a skilful and determined enemy, it appears in many guises..."
+              </blockquote>
+            </div>
+
+            <!-- THIRD WORLDISM -->
+            <div class="bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-2">
+              <div class="flex items-center justify-between">
+                <h3 class="font-bold text-sm text-emerald-400">Third Worldism & Southern Solidarity</h3>
+                <span class="text-[10px] font-mono bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded">Non-Aligned Movement</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                Began as a collective resistance by post-colonial nations against new forms of imperialist economic domination, seeking alternative paths to sovereign development.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: STARBUCKS AND THE SHANTY -->
+      <section id="tab-starbucks" class="tab-content hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-4">
+          <div class="border-b border-slate-800 pb-3">
+            <h2 class="font-bold text-slate-100 text-base sm:text-lg flex items-center gap-2">
+              <i class="fa-solid fa-store text-emerald-400"></i>
+              "The Starbucks and the Shanty" Concept (Slide 13 & 14)
+            </h2>
+            <p class="text-xs text-slate-400">Understanding spatial inequalities within both Northern and Southern borders.</p>
+          </div>
+
+          <div class="bg-slate-950 p-5 rounded-2xl border border-slate-800 space-y-4">
+            <h3 class="font-bold text-sm text-emerald-400 font-mono">
+              Core Concept: Spatial & Entangled Geographies
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+                <h4 class="font-bold text-slate-200 flex items-center gap-2">
+                  <i class="fa-solid fa-city text-blue-400"></i> Spaces of Affluence in the South
+                </h4>
+                <p class="text-slate-400 leading-relaxed">
+                  High-end luxury districts, Starbucks cafes, gated communities, and financial towers in cities like Manila, Jakarta, or Mumbai mirror the wealth of the Global North.
+                </p>
+              </div>
+              <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+                <h4 class="font-bold text-slate-200 flex items-center gap-2">
+                  <i class="fa-solid fa-house-crack text-rose-400"></i> Spaces of Underdevelopment in the North
+                </h4>
+                <p class="text-slate-400 leading-relaxed">
+                  Impoverished urban ghettos, tent cities, and neglected rural areas in wealthy nations (e.g., US or UK inner cities) mirror the poverty of the Global South.
+                </p>
+              </div>
+            </div>
+            <div class="bg-pink-500/10 border border-pink-500/30 p-3 rounded-xl text-xs text-pink-300 font-mono">
+              <strong>Slide Key Takeaway:</strong> "The Global South is everywhere, but it is also somewhere... located at the intersection of entangled political geographies of dispossession and repossession."
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: EXAM PRACTICE QUIZ -->
+      <section id="tab-quiz" class="tab-content hidden space-y-6">
+        <div class="bg-slate-900 border border-slate-800 p-5 rounded-2xl space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+            <div>
+              <h2 class="font-bold text-slate-100 text-base sm:text-lg flex items-center gap-2">
+                <i class="fa-solid fa-circle-question text-purple-400"></i>
+                Interactive Exam Practice Drills
+              </h2>
+              <p class="text-xs text-slate-400">Test your understanding of the slides before your Contemporary World exam.</p>
+            </div>
+            <span id="quiz-score-badge" class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/30 text-purple-400 text-xs font-mono font-bold">
+              Score: 0 / 5
+            </span>
+          </div>
+
+          <div id="quiz-container" class="space-y-4">
+            <!-- Questions rendered via JS -->
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- KOFI ANNAN QUOTE MODAL -->
+  <div id="quote-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 max-w-lg w-full p-6 rounded-3xl space-y-4 relative shadow-2xl">
+      <button onclick="toggleGlobalQuoteModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white">
+        <i class="fa-solid fa-xmark text-lg"></i>
+      </button>
+      <div class="w-10 h-10 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center text-xl">
+        <i class="fa-solid fa-quote-left"></i>
+      </div>
+      <blockquote class="text-slate-200 text-sm italic leading-relaxed">
+        "A North-South divide persists—a divide characterized by deep disparities in wealth, power, and influence. This is not just an abstract concept; it is a reality that shapes the lives of billions of people across the globe."
+      </blockquote>
+      <div class="text-right text-xs font-mono text-pink-400 font-bold">
+        — Kofi Annan, former Secretary-General of the United Nations
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-slate-900 border-t border-slate-800 mt-auto py-4">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2 font-mono">
+      <div>Global North & Global South Divide • Interactive Study App</div>
+      <div>Designed for Contemporary World (Oct 2026 Edition)</div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const quizData = [
+      {
+        q: "1. According to the lecture slides, what proportion of global income is controlled by the Global North (which has only 1/4 of the world population)?",
+        options: ["One-fifth (20%)", "Four-fifths (80%)", "Half (50%)", "Nine-tenths (90%)"],
+        correct: 1,
+        explanation: "Slide 10 states: 'The North—with one quarter of the world population—controls four-fifths (80%) of the income earned anywhere in the world.'"
+      },
+      {
+        q: "2. Which International Relations theory assumes the global system is inherently anarchic and states are locked in a perpetual struggle for relative power?",
+        options: ["Liberalism", "Constructivism", "Realism", "Marxism"],
+        correct: 2,
+        explanation: "Slide 16 states: 'Realism generally assumes that the international system is inherently disorderly and relations are anarchic... primary actors are perpetually locked against a struggle for power.'"
+      },
+      {
+        q: "3. Who proposed the visual boundary line in 1980 dividing the developed North from the developing South based on GDP per capita?",
+        options: ["Manfred Steger", "Willy Brandt", "Francis Fukuyama", "Samuel Huntington"],
+        correct: 1,
+        explanation: "Slide 11 shows the 'Brandt Line', proposed by Willy Brandt in the 1980 Brandt Report."
+      },
+      {
+        q: "4. What does the term 'Austerity' specifically refer to in the slide definitions?",
+        options: [
+          "Building heavy industrial factories",
+          "Policy of cutting budget for social services to reduce deficit",
+          "Closer economic integration of neighboring countries",
+          "Indirect cultural domination by foreign powers"
+        ],
+        correct: 1,
+        explanation: "Slide 7 defines Austerity as: 'policy of cutting budget for social services, so as to reduce a country's budget deficit.'"
+      },
+      {
+        q: "5. Which Indonesian leader stated that 'Colonialism has also its modern dress, in the form of economic control, intellectual control...'?",
+        options: ["Vladimir Lenin", "W.W. Rostow", "President Sukarno", "Kofi Annan"],
+        correct: 2,
+        explanation: "Slide 21 quotes President Sukarno of Indonesia warning about modern guises of economic and intellectual colonialism."
+      }
+    ];
+
+    let userScore = 0;
+    const userAnswers = {};
+
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-slate-800', 'text-white');
+        btn.classList.add('text-slate-300');
+      });
+
+      const targetTab = document.getElementById(`tab-${tabId}`);
+      const targetBtn = document.getElementById(`nav-${tabId}`);
+
+      if (targetTab) targetTab.classList.remove('hidden');
+      if (targetBtn) targetBtn.classList.add('active', 'bg-slate-800', 'text-white');
+    }
+
+    function toggleGlobalQuoteModal() {
+      const modal = document.getElementById('quote-modal');
+      modal.classList.toggle('hidden');
+    }
+
+    function renderQuiz() {
+      const container = document.getElementById('quiz-container');
+      container.innerHTML = '';
+
+      quizData.forEach((item, qIdx) => {
+        const card = document.createElement('div');
+        card.className = "bg-slate-950 border border-slate-800 p-4 rounded-xl space-y-3";
+
+        let optionsHTML = '';
+        item.options.forEach((opt, oIdx) => {
+          optionsHTML += `
+            <button onclick="checkQuizAnswer(${qIdx}, ${oIdx})" id="opt-${qIdx}-${oIdx}" class="w-full text-left p-2.5 rounded-lg border border-slate-800 text-xs text-slate-300 hover:bg-slate-900 hover:border-pink-500/50 transition">
+              ${opt}
+            </button>
+          `;
+        });
+
+        card.innerHTML = `
+          <h4 class="font-bold text-xs sm:text-sm text-slate-200 leading-snug">${item.q}</h4>
+          <div class="space-y-2">${optionsHTML}</div>
+          <div id="expl-${qIdx}" class="hidden p-2.5 rounded-lg text-xs font-mono mt-2"></div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function checkQuizAnswer(qIdx, selectedIdx) {
+      if (userAnswers[qIdx] !== undefined) return; // already answered
+      userAnswers[qIdx] = selectedIdx;
+
+      const q = quizData[qIdx];
+      const explEl = document.getElementById(`expl-${qIdx}`);
+      const selectedBtn = document.getElementById(`opt-${qIdx}-${selectedIdx}`);
+      const correctBtn = document.getElementById(`opt-${qIdx}-${q.correct}`);
+
+      if (selectedIdx === q.correct) {
+        userScore++;
+        selectedBtn.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-300');
+        explEl.classList.remove('hidden');
+        explEl.classList.add('bg-emerald-500/10', 'text-emerald-400', 'border', 'border-emerald-500/30');
+        explEl.innerText = "✓ Correct! " + q.explanation;
+      } else {
+        selectedBtn.classList.add('bg-rose-500/20', 'border-rose-500', 'text-rose-300');
+        correctBtn.classList.add('bg-emerald-500/20', 'border-emerald-500', 'text-emerald-300');
+        explEl.classList.remove('hidden');
+        explEl.classList.add('bg-rose-500/10', 'text-rose-400', 'border', 'border-rose-500/30');
+        explEl.innerText = "✗ Incorrect. " + q.explanation;
+      }
+
+      document.getElementById('quiz-score-badge').innerText = `Score: ${userScore} / ${quizData.length}`;
+    }
+
+    window.onload = function() {
+      renderQuiz();
+    };
+  </script>
+</body>
+</html>
